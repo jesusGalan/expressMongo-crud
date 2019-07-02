@@ -1,16 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost:27017/test',{useNewUrlParser:true})
+const dbName = '/test';
+
+mongoose.connect('mongodb://localhost:27017/' + dbName, { useNewUrlParser:true })
     .then(() => console.log('mongoose connected'))
-    .catch(e=>console.log("error"));
+    .catch(e => console.log("error"));
 
 const Users = mongoose.model('users', new Schema({
     name: {type: String},
     surname: {type: String}
 }));
 
-const listUsers = Users.find({}, function (req, res) { // Puta asyncronia
+const listUsers = Users.find({}, function (req, res) {
     const usersArr = [];
     res.forEach(elem => {
         usersArr.push(elem)
